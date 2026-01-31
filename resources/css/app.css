@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================
+   1. أنيميشن الخلفية (Ken Burns) - معدل للنعومة
+   ========================================= */
+@keyframes kenBurns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.15); }
+}
+.animate-ken-burns {
+    /* مدة أطول (30s) وحركة انسيابية */
+    animation: kenBurns 30s alternate infinite ease-in-out;
+    will-change: transform; /* تحسين الأداء */
+}
+
+/* =========================================
+   2. إعدادات الصفحة والسكرول (Scroll & Page Load)
+   ========================================= */
+
+/* منع قفزة الشاشة عند ظهور/اختفاء السكرول */
+html {
+    scrollbar-gutter: stable; /* يحجز مكان للسكرول دائماً */
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* إعدادات الجسم لظهور ناعم عند الريفريش */
+body {
+    opacity: 0; /* يبدأ مخفي */
+    visibility: hidden; /* ضمان عدم ظهور عناصر مكسورة */
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out; /* انتقال ناعم */
+    background-color: #0a0a0a; /* لون الخلفية عشان ميبانش وميض أبيض */
+    overflow-x: hidden;
+}
+
+/* هذا الكلاس يضاف بالجافاسكريبت لإظهار الصفحة */
+body.loaded {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =========================================
+   3. باقي الأنيميشن (Elements Animation)
+   ========================================= */
+
+/* حركة الشريط الإخباري */
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(50%); }
+}
+.animate-marquee {
+    animation: marquee 25s linear infinite;
+    white-space: nowrap;
+}
+
+/* حركة النصوص للأعلى */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+.delay-100 { animation-delay: 0.2s; }
+.delay-200 { animation-delay: 0.4s; }
+.delay-300 { animation-delay: 0.6s; }
+
+/* تتابع ظهور المنتجات */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* نبض الأزرار الذهبية */
+@keyframes pulse-gold {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(197, 161, 5, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(197, 161, 5, 0); }
+}
+.animate-pulse-gold {
+    animation: pulse-gold 2s infinite;
+}
+
+/* الطفو (Float) */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* توهج ذهبي */
+.glow-gold {
+    box-shadow: 0 0 20px rgba(197, 161, 5, 0.3);
+}
+
+/* تأثير البارالاكس */
+.parallax {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* =========================================
+   4. Loading & Overlays
+   ========================================= */
+
+/* Loading overlay (احتياطي) */
+.page-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.25s ease-out;
+    pointer-events: none;
+}
+
+.page-loading-overlay.hidden {
+    opacity: 0;
+}
+
+/* سبينر التحميل */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(197, 161, 5, 0.2);
+    border-top-color: #c5a105;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+/* =========================================
+   5. تحسينات عامة
+   ========================================= */
+
+/* نعومة الروابط */
+a {
+    transition: all 0.3s ease;
+}
+
+/* منع وميض المحتوى غير المنسق */
+.no-js body {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* تحسين أداء النافبار */
+#navbar {
+    will-change: padding, background-color, box-shadow;
+}
+
+#logo {
+    will-change: transform, font-size;
+}
+
+nav {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+}
